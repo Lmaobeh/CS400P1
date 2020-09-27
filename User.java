@@ -1,4 +1,3 @@
-
 public class User {
 private String username;
 private Game[] gameList;
@@ -8,8 +7,11 @@ private Game[] gameList;
     this.username = username;
     this.gameList = gameList;
   }
+  public User(String username) {
+    this.username = username;
+  }
 
-  public String getUsernmae() {
+  public String getUsername() {
     return this.username;
   }
   
