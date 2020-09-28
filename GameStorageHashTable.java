@@ -51,14 +51,14 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
       if (temp[i] == null)
         continue;
       for (User o : temp[i]) {
-        this.addUser(o);
+        this.add(o);
       }
     }
 
   }
 
   @Override
-  public boolean addUser(User value) {
+  public boolean add(User value) {
     String key = value.getUsername();
     if (this.containsKey(key))
       return false;
@@ -139,9 +139,15 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
     return str;
   }
   
-  public String getGameStats(String username, int gameIndex) throws NoSuchElementException {
-    if (gameIndex < 0 || gameIndex >= GAME_NUMBER) throw new IndexOutOfBoundsException();
-    return this.lookup(username).getGameList()[gameIndex].toString();
+  public String getGameStats(String username, String gameName) throws NoSuchElementException {
+    Game[] gamelist = this.lookup(username).getGameList();
+    for (int i = 0; i < gamelist.length; i++) {
+      if (gamelist[i]==null ) continue;
+      if (gamelist[i].getName().equalsIgnoreCase(gameName)) {
+        return gamelist[i].toString();
+      }
+    }
+    throw new NoSuchElementException();
   }
 
   public static void main(String[] args) {
@@ -149,26 +155,28 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
     gl[0] = new Game("DOOM", 0.0, 0.0, 0.0);
     gl[1] = new Game("Destiny", 0.0,0.0, 0.0);
     GameStorageHashTable table = new GameStorageHashTable();
-    table.addUser(new User("Lucas", gl));
+    table.add(new User("Lucas", gl));
     System.out.println(table.size());
     System.out.println(table.containsKey("Lucas"));
     System.out.println(table.remove("Lucas"));
     System.out.println(table.size());
-    table.addUser(new User("kah", null));
-    table.addUser(new User("kako", null));
-    table.addUser(new User("kakoo", null));
-    table.addUser(new User("kakooo", null));
-    table.addUser(new User("kakoooo", null));
-    table.addUser(new User("kakooooo", null));
-    table.addUser(new User("kakoooooo", null));
-    table.addUser(new User("kakooooooo", null));
+    table.add(new User("kah", null));
+    table.add(new User("kako", null));
+    table.add(new User("kakoo", null));
+    table.add(new User("kakooo", null));
+    table.add(new User("kakoooo", null));
+    table.add(new User("kakooooo", null));
+    table.add(new User("kakoooooo", null));
+    table.add(new User("kakooooooo", null));
     System.out.println(table.capacity);
     System.out.println(table.lookup("kakooooo"));
     //System.out.println(table.get("hello"));
     System.out.println(table.remove("kakooooo"));
     System.out.println(table.size);
-    table.addUser(new User("Lucas", gl));
+    table.add(new User("Lucas", gl));
     System.out.println(Arrays.toString(table.getGameStats("Lucas")));
+    System.out.println(table.getGameStats("Lucas", "DOOM"));
+    System.out.println(table.getGameStats("Lucas", "GameDoesntexist"));
     
   }
 
