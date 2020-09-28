@@ -43,5 +43,12 @@ public double getCompletion() {
 public double getPersonalRating() {
     return personalRating;
 }
+public String toString() {
+  String str = "Game Name: " + name +"\n";
+  str += "\t Time Played: " +timePlayed + "\n";
+  str += "\t Completion " + timePlayed+ "%\n";
+  str += "\t Personal Rating: "+ personalRating+ "\n";
+  return str;
+}
   
 }

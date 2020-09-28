@@ -4,8 +4,9 @@ private Game[] gameList;
 
 // Game list should be a Game array of capacity 10
   public User(String username, Game[] gameList) {
-    this.username = username;
+    this.username = username; 
     this.gameList = gameList;
+    
   }
   public User(String username) {
     this.username = username;
