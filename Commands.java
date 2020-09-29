@@ -61,20 +61,23 @@ public class Commands {
         break;
       case "t": System.out.println("Enter the new amount of time played");
       double newTime = scnr.nextDouble();
+        scnr.nextLine();
         System.out.println("Enter the name of the game you'd like to change");
-        String game = scnr.next();
+        String game = scnr.nextLine();
         changeTime(table, newTime, user1.getUsername(),game);
         break;
       case "c": System.out.println("Enter the new amount of percentage completed");
         double newPercent = scnr.nextDouble();
         System.out.println("Enter the name of the game you'd like to change");
-        String game2 = scnr.next();
+        scnr.nextLine();
+        String game2 = scnr.nextLine();
         changePercentage(table, newPercent, user1.getUsername(),game2);
         break;
       case "s": System.out.println("Enter the new personal score");
         double newScore = scnr.nextDouble();
         System.out.println("Enter the name of the game you'd like to change");
-        String game3 = scnr.next();
+        scnr.nextLine();
+        String game3 = scnr.nextLine();
         changeScore(table, newScore, user1.getUsername(),game3);
         break;
       case "u":
