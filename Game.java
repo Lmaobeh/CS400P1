@@ -11,6 +11,12 @@ public Game(String name, double timePlayed, double completion, double personalRa
   this.completion = completion;
   this.personalRating = personalRating;
 }
+public Game(String name) {
+  this.name = name;
+  this.timePlayed = 0.0;
+  this.completion = 0.0;
+  this.personalRating = 0.0;
+}
 
 public String getName() {
   return name;

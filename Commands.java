@@ -1,5 +1,7 @@
 import java.util.Arrays;
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Commands {
 
   
@@ -20,12 +22,25 @@ public class Commands {
      table.getGame(user, game).setPersonalRating(newScore);
    }
   
+  
   public static void main(String[] args) {
     GameStorageHashTable table = new GameStorageHashTable(10);
     Scanner scnr = new Scanner(System.in);
     boolean run = true;
     Game[] gameList = new Game[10];
-    gameList[0] = new Game("DOOM", 0.0,0.0,0.0);
+    Scanner fileread = null;
+    try {
+      File f = new File("GameList.txt");
+      fileread = new Scanner(f);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    int i = 0;
+    while(fileread.hasNextLine()) {
+      gameList[i] = new Game(fileread.nextLine());
+      i++;
+    }
+    System.out.println(Arrays.toString(gameList));
     while(run) {
     System.out.println("Welcome to the Video Game Database, please enter a username");
     User user1 = new User(scnr.nextLine(), gameList);
@@ -38,19 +53,19 @@ public class Commands {
       case "p": printAll(table, user1.getUsername()); 
         break;
       case "t": System.out.println("Enter the new amount of time played");
-      int newTime = scnr.nextInt();
+      double newTime = scnr.nextDouble();
         System.out.println("Enter the name of the game you'd like to change");
         String game = scnr.next();
         changeTime(table, newTime, user1.getUsername(),game);
         break;
       case "c": System.out.println("Enter the new amount of percentage completed");
-        int newPercent = scnr.nextInt();
+        double newPercent = scnr.nextDouble();
         System.out.println("Enter the name of the game you'd like to change");
         String game2 = scnr.next();
         changePercentage(table, newPercent, user1.getUsername(),game2);
         break;
       case "s": System.out.println("Enter the new personal score");
-        int newScore = scnr.nextInt();
+        double newScore = scnr.nextDouble();
         System.out.println("Enter the name of the game you'd like to change");
         String game3 = scnr.next();
         changeScore(table, newScore, user1.getUsername(),game3);
