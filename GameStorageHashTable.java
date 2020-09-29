@@ -16,10 +16,9 @@ import java.util.LinkedList;
  *
  */
 public class GameStorageHashTable implements GameStorageADT<String, User> {
-  private LinkedList<User>[] hashTable;
-  private int capacity;
-  private int size;
-  private final static double LOAD_THRESHOLD = .8;
+  private HashTableMap<String, User> hashTable;
+
+  
   private final static int GAME_NUMBER = 10;
 
   /**
@@ -28,75 +27,24 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    * @param capacity the capacity
    */
   public GameStorageHashTable(int capacity) {
-    this.capacity = capacity;
-    hashTable = (LinkedList<User>[]) new LinkedList[this.capacity];
-    this.size = 0;
+    hashTable = new HashTableMap<String, User>(capacity);
   }
 
   /**
    * Initalizes with a default 10
    */
   public GameStorageHashTable() {
-    this.capacity = 10;
-    hashTable = (LinkedList<User>[]) new LinkedList[this.capacity];
-    this.size = 0;
+    hashTable = new HashTableMap<String, User>();
   }// with default capacity = 10
 
-  /**
-   * Checks if the load factor is greater than or equal to 80%
-   * 
-   * @return true if it is greater, false if it is not.
-   */
-  private boolean checkLoadFactor() {
-    return (double) size / (double) capacity >= LOAD_THRESHOLD;
-  }
-
-  /**
-   * Computes a hash index from a given key
-   * 
-   * @param key the key
-   * @return the hash index returned
-   */
-  private int hashFunction(String key) {
-    return (key.hashCode() & 0x7fffffff) % capacity;
-  }
-
-  /**
-   * Preforms a resize operation on the hash table, doubling the capacity
-   */
-  private void resizeTable() {
-    LinkedList<User>[] temp = hashTable;
-    hashTable = (LinkedList<User>[]) new LinkedList[capacity *= 2];
-    size = 0;
-    for (int i = 0; i < temp.length; i++) {
-      if (temp[i] == null)
-        continue;
-      for (User o : temp[i]) {
-        this.add(o);
-      }
-    }
-
-  }
 
   /**
    * @param user Takes a user object to add to this table
    * @return true if the user was successfully added, false if the user already existed
    */
   @Override
-  public boolean add(User value) {
-    String key = value.getUsername();
-    if (this.containsKey(key))
-      return false;
-    if (hashTable[hashFunction(key)] != null) {
-      hashTable[hashFunction(key)].add(value);
-    } else {
-      hashTable[hashFunction(key)] = new LinkedList<User>();
-      hashTable[hashFunction(key)].add(value);
-    }
-    size++;
-    if (this.checkLoadFactor())
-      this.resizeTable();
-    return true;
+  public boolean add(User value) { 
+    return hashTable.put(value.getUsername(), value);
   }
 
   /**
@@ -108,15 +56,7 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    */
   @Override
   public User lookup(String key) throws NoSuchElementException {
-    if (hashTable[hashFunction(key)] == null) {
-      throw new NoSuchElementException();
-    }
-    for (User i : hashTable[hashFunction(key)]) {
-      if (i.getUsername().equals(key)) {
-        return i;
-      }
-    }
-    throw new NoSuchElementException();
+   return hashTable.get(key);
   }
 
   /**
@@ -124,7 +64,7 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    */
   @Override
   public int size() {
-    return size;
+    return hashTable.size();
   }
 
   /**
@@ -135,15 +75,7 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    */
   @Override
   public boolean containsKey(String key) {
-    if (hashTable[hashFunction(key)] == null) {
-      return false;
-    }
-    for (User i : hashTable[hashFunction(key)]) {
-      if (i.getUsername().equals(key)) {
-        return true;
-      }
-    }
-    return false;
+    return hashTable.containsKey(key);
   }
 
   /**
@@ -154,19 +86,7 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    */
   @Override
   public User remove(String key) {
-    if (this.containsKey(key)) {
-      for (User node : hashTable[hashFunction(key)]) {
-        if (node.getUsername().equals(key)) {
-          size--;
-          hashTable[hashFunction(key)].remove(node);
-          if (hashTable[hashFunction(key)].size() == 0) {
-            hashTable[hashFunction(key)] = null;
-          }
-          return node;
-        }
-      }
-    }
-    return null;
+    return hashTable.remove(key);
   }
 
   /**
@@ -174,8 +94,7 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
    */
   @Override
   public void clear() {
-    hashTable = (LinkedList<User>[]) new LinkedList[this.capacity];
-    size = 0;
+    hashTable.clear();
   }
 
   /**
@@ -245,15 +164,15 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
     table.add(new User("kakooooo", null));
     table.add(new User("kakoooooo", null));
     table.add(new User("kakooooooo", null));
-    System.out.println(table.capacity);
+    
     System.out.println(table.lookup("kakooooo"));
     // System.out.println(table.get("hello"));
     System.out.println(table.remove("kakooooo"));
-    System.out.println(table.size);
+ 
     table.add(new User("Lucas", gl));
     System.out.println(Arrays.toString(table.getGameStats("Lucas")));
     System.out.println(table.getGameStats("Lucas", "DOOM"));
-    System.out.println(table.getGameStats("Lucas", "GameDoesntexist"));
+    //System.out.println(table.getGameStats("Lucas", "GameDoesntexist"));
 
   }
 

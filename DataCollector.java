@@ -1,11 +1,4 @@
-// --== CS400 File Header Information ==--
-// Name: <Michael Brudos>
-// Email: <mbrudos@wisc.edu>
-// Team: <NE>
-// Role: <Data Wrangler 2>
-// TA: <Daniel>
-// Lecturer: <Gary>
-// Notes to Grader: <optional extra notes>
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,11 +54,15 @@ public class DataCollector {
   /**
    * Creates and Returns an Empty array of type Game
    * 
-   * @param capacity
    * @return Empty Game arry
    */
-  public Game[] emptyStorage(int capacity) {
-    return new Game[capacity];
+  public Game[] emptyStorage() {
+    Game[] games = Arrays.copyOf(this.getGameStats()[0], this.getGameStats()[0].length);
+    
+    for (int i = 0; i < games.length; i++) {
+      games[i] = new Game(games[i].getName());
+    }
+    return games;
   }
 
   /**
