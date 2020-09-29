@@ -43,6 +43,14 @@ private User[] users;
     return users;
   }
   
+  /** Creates and Returns an Empty array of type Game
+   * @param capacity
+   * @return Empty Game arry
+   */
+  public Game[] emptyStorage(int capacity) {
+    return new Game[capacity];
+  }
+  
   /** Instantiates important DataCollection fields and processes data in data file.
    * @throws FileNotFoundException
    */
