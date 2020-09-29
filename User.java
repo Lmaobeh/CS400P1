@@ -1,4 +1,11 @@
-
+// --== CS400 File Header Information ==--
+// Name: <Michael Brudos>
+// Email: <mbrudos@wisc.edu>
+// Team: <NE>
+// Role: <Data Wrangler 2>
+// TA: <Daniel>
+// Lecturer: <Gary>
+// Notes to Grader: <optional extra notes>
 /**
  * @author Michael B
  * Implements a User that has a collection of games to be used in the Hash table
