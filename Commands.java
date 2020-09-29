@@ -1,6 +1,6 @@
 // --== CS400 File Header Information ==--
-// Name: Qosai
-// Email: Kadadha@wisc.edu
+// Name: Qosai Kadadha, Lucas Nguyen
+// Email: Kadadha@wisc.edu, lfnguyen@wisc.edu
 // Team: NE
 // TA: Daniel Finer
 // Lecturer: Florian Heimerl 
