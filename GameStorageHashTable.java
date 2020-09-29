@@ -132,10 +132,11 @@ public class GameStorageHashTable implements GameStorageADT<String, User> {
   public String[] getGameStats(String username) throws NoSuchElementException {
     Game[] gamelist = this.lookup(username).getGameList();
     String[] str = new String[gamelist.length];
-    for (int i = 0; i < gamelist.length-1; i++) {
+    for (int i = 0; i < gamelist.length; i++) {
      if(gamelist[i]== null) continue;
      str[i] = gamelist[i].toString();
     }
+   
     return str;
   }
   

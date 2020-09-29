@@ -27,24 +27,27 @@ public class Commands {
     GameStorageHashTable table = new GameStorageHashTable(10);
     Scanner scnr = new Scanner(System.in);
     boolean run = true;
-    Game[] gameList = new Game[10];
-    Scanner fileread = null;
+    DataCollector d = null;
     try {
-      File f = new File("GameList.txt");
-      fileread = new Scanner(f);
+      d = new DataCollector("Input.txt");
+      d.updateInput();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    int i = 0;
-    while(fileread.hasNextLine()) {
-      gameList[i] = new Game(fileread.nextLine());
-      i++;
+    for (int i = 0; i < d.getUsers().length; i++) {
+      table.add(d.getUsers()[i]);
     }
-    System.out.println(Arrays.toString(gameList));
-    while(run) {
+    
+    for (int i = 0; i < d.getGameStats().length; i++) {
+      System.out.println(Arrays.toString(d.getGameStats()[i]));
+    }
     System.out.println("Welcome to the Video Game Database, please enter a username");
-    User user1 = new User(scnr.nextLine(), gameList);
+    User user1 = new User(scnr.nextLine(), null);//change later
     table.add(user1);
+    
+    
+    while(run) {
+   
     System.out.println("Thanks " + user1.getUsername() + ", please input a command");
     System.out.println("Enter p to view all game data \nEnter t to change time played in a game \n"
         + "Enter c to change completion percentage \nEnter s to change personal rating \nEnter u to switch users"
@@ -70,7 +73,11 @@ public class Commands {
         String game3 = scnr.next();
         changeScore(table, newScore, user1.getUsername(),game3);
         break;
-      case "u": break;
+      case "u":
+        System.out.println("Enter the username");
+        String username = scnr.next();
+        user1 = table.lookup(username);
+        break;
       case "r": System.out.println("Enter which user you'd like to remove");
         String removeUser = scnr.next();
         table.remove(removeUser);
