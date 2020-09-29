@@ -44,11 +44,14 @@ private User[] users;
   }
   
   /** Creates and Returns an Empty array of type Game
-   * @param capacity
    * @return Empty Game arry
    */
-  public Game[] emptyStorage(int capacity) {
-    return new Game[capacity];
+  public Game[] emptyStorage() {
+    Game[] games = this.getGameStats()[0];
+    for (int i = 0; i < games.length; i++) {
+      games[i] = new Game(games[i].getName());
+    }
+    return games;
   }
   
   /** Instantiates important DataCollection fields and processes data in data file.

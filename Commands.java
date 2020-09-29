@@ -34,18 +34,14 @@ public class Commands {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+    //adds users to array
     for (int i = 0; i < d.getUsers().length; i++) {
       table.add(d.getUsers()[i]);
     }
-    
-    for (int i = 0; i < d.getGameStats().length; i++) {
-      System.out.println(Arrays.toString(d.getGameStats()[i]));
-    }
+    Game[] emptyGameList = d.emptyStorage();
     System.out.println("Welcome to the Video Game Database, please enter a username");
-    User user1 = new User(scnr.nextLine(), null);//change later
+    User user1 = new User(scnr.nextLine(), emptyGameList);//change later
     table.add(user1);
-    
-    
     while(run) {
    
     System.out.println("Thanks " + user1.getUsername() + ", please input a command");
