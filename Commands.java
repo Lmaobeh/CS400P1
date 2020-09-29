@@ -1,22 +1,30 @@
+// --== CS400 File Header Information ==--
+// Name: Qosai
+// Email: Kadadha@wisc.edu
+// Team: NE
+// TA: Daniel Finer
+// Lecturer: Florian Heimerl 
+// Notes to Grader: <optional extra notes>
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class Commands {
 
-  
+  //prints all game data for a user
   public static void printAll(GameStorageHashTable table, String user) {
      System.out.println(Arrays.toString(table.getGameStats(user)));
   }
+  //takes user inputed time and changes time played for game specified
   public static void changeTime(GameStorageHashTable table, double newTime, String user, String game) {
     table.getGame(user, game).setTimePlayed(newTime);
   }
-  
+  //takes user inputed percentage of game completed and updates it for time specified
   public static void changePercentage(GameStorageHashTable table, double newCompletion, String user, String game) {
     if (newCompletion < 0.00 || newCompletion > 100.00) throw new IndexOutOfBoundsException();
     table.getGame(user, game).setCompletion(newCompletion);
    }
-
+   //takes user inputed game score and changes it in database for game specified
   public static void changeScore(GameStorageHashTable table, double newScore, String user, String game) {
      if (newScore < 0.0 || newScore > 5.0) throw new IndexOutOfBoundsException();
      table.getGame(user, game).setPersonalRating(newScore);
@@ -29,7 +37,7 @@ public class Commands {
     boolean run = true;
     DataCollector d = null;
     try {
-      d = new DataCollector("Input.txt");
+      d = new DataCollector("Input.txt"); //adds text file to game array 
       d.updateInput();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -42,13 +50,13 @@ public class Commands {
     System.out.println("Welcome to the Video Game Database, please enter a username");
     User user1 = new User(scnr.nextLine(), emptyGameList);//change later
     table.add(user1);
-    while(run) {
+    while(run) { //while loop that keeps program continuously running until user inputs end command
    
-    System.out.println("Thanks " + user1.getUsername() + ", please input a command");
+    System.out.println("Thanks " + user1.getUsername() + ", please input a command"); //prints instructions for users
     System.out.println("Enter p to view all game data \nEnter t to change time played in a game \n"
         + "Enter c to change completion percentage \nEnter s to change personal rating \nEnter u to switch users"
         + "\nEnter r to remove a user \nEnter x to end program");
-    switch(scnr.next()){
+    switch(scnr.next()){        //switch statement runs through all possible commands 
       case "p": printAll(table, user1.getUsername()); 
         break;
       case "t": System.out.println("Enter the new amount of time played");
@@ -80,9 +88,10 @@ public class Commands {
         break;
       case "x": run = false;
       break;
+      default: System.out.println("Please enter a valid command");
     }
    }
-    System.out.println("Thank you for using  the video game database");
+    System.out.println("Thank you for using the video game database");
     scnr.close();
   }
 
