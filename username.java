@@ -1,4 +1,11 @@
-
+// --== CS400 File Header Information ==--
+// Name: Tricia Nazareth
+// Email: tnazareth@wisc.edu
+// Team: NE
+// Role: Data WRangler
+// TA: Daniel Finer
+// Lecturer: Florian
+// Notes to Grader: <optional extra notes>
 import java.util.Scanner;
 
 public class username {
