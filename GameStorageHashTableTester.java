@@ -1,11 +1,15 @@
-
-public class GameStorageHashTableTester {
+// --== CS400 File Header Information ==--
+// Name: Pieran Robert
+// Email: probert@wisc.edu
+// Team: NE
+// TA: Daniel Finer
+// Lecturer: Gary Dahl
+// Notes to Grader: <optional extra notes>
+public class GameStorageHashTableTester extends Commands {
 
 	public static void main(String [] args) {
 		System.out.println("test1: " + test1());
 		System.out.println("test2: " + test2());
-		System.out.println("user1".hashCode() & 0x7fffffff % 10);
-		System.out.println("user".hashCode() & 0x7fffffff % 10);
 		System.out.println("test3: " + test3());
 		System.out.println("test4: " + test4());
 		System.out.println("test5: " + test5());
@@ -22,12 +26,12 @@ public class GameStorageHashTableTester {
 		if(table1.size() != 1)
 			return false;
 		try {
-		System.out.println(table1.getGameStats("user1", 0));
+		System.out.println(table1.getGameStats("user1", "Skyrim"));
 		}
 		catch(Exception E) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	/**
@@ -40,12 +44,12 @@ public class GameStorageHashTableTester {
 		Game game1 = new Game("game1", 0 ,0, 0);
 		table2.lookup("user2").getGameList()[0] = game1;
 		try {
-			System.out.println(table2.getGameStats("user2", 0));
+			System.out.println(table2.getGameStats("user1", "Skyrim"));
 			}
 			catch(Exception E) {
-				return false;
+				return true;
 			}
-			return true;
+			return false;
 		}
 	
 	/**
@@ -132,7 +136,5 @@ public class GameStorageHashTableTester {
 		
 		
 	}
-	
-	
 	
 }
