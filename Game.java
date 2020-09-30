@@ -6,6 +6,7 @@ private double completion;
 private double personalRating;
 
 public Game(String name, double timePlayed, double completion, double personalRating) {
+  
   this.name = name;
   this.timePlayed = timePlayed;
   this.completion = completion;
@@ -27,14 +28,17 @@ public void setName(String name) {
 }
 
 public void setTimePlayed(double timePlayed) {
+  if (timePlayed < 0.0) throw new IndexOutOfBoundsException();
   this.timePlayed = timePlayed;
 }
 
 public void setCompletion(double completion) {
+  if (completion < 0 || completion > 100) throw new IndexOutOfBoundsException();
   this.completion = completion;
 }
 
 public void setPersonalRating(double personalRating) {
+  if(personalRating < 0.0 || personalRating > 5.0) throw new IndexOutOfBoundsException();
   this.personalRating = personalRating;
 }
 
@@ -52,7 +56,7 @@ public double getPersonalRating() {
 public String toString() {
   String str = "Game Name: " + name +"\n";
   str += "\t Time Played: " +timePlayed + "\n";
-  str += "\t Completion " + completion *100+ "%\n";
+  str += "\t Completion " + String.format("%5.2f", completion*100.0) + "%\n";
   str += "\t Personal Rating: "+ personalRating+ "\n";
   return str;
 }
